@@ -21,6 +21,21 @@ export default class MeetupList extends React.Component{
     }
   }
 
+  static navigationOptions = ({ navigation }) => ({
+
+    title:'Meetup',
+    headerStyle : {
+      backgroundColor: 'red',
+      paddingTop: 25,
+      paddingHorizontal:10,
+      height:80
+    },
+    headerTitleStyle: {
+      color: 'white'
+    },
+    headerTintColor: 'white'
+  });
+
   componentWillMount(){
     setTimeout(() => {
       this.setState({

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 
-import MeetupList from './src/components/MeetupList';
 import Auth from './src/components/Auth';
 import AppNavigation from './AppNavigation';
 
@@ -24,7 +23,11 @@ export default class App extends Component {
   render() {
     return (
       <View style={{ flex: 1 }} >
-        <MeetupList />
+        {
+          this.state.user
+          ? <AppNavigation user={this.state.user} />
+          : <Auth />
+        }
       </View>
     );
   }
