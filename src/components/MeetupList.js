@@ -9,6 +9,7 @@ import {
     Dimensions,
     ActivityIndicator
 } from 'react-native';
+import { navigationOptions } from '../config/navOptions'
 
 const { width, height } = Dimensions.get('window');
 
@@ -24,31 +25,18 @@ export default class MeetupList extends React.Component{
   static navigationOptions = ({ navigation }) => ({
 
     title:'Meetup',
-    headerStyle : {
-      backgroundColor: 'red',
-      paddingTop: 25,
-      paddingHorizontal:10,
-      height:80
-    },
-    headerTitleStyle: {
-      color: 'white'
-    },
-    headerTintColor: 'white'
+    ...navigationOptions
   });
 
   componentWillMount(){
     setTimeout(() => {
       this.setState({
         events: [
-          { title: 'Evento de Meetup 1', groupImage: 'http://angular.github.io/react-native-renderer/assets/react.png', groupName: 'ReactJs Peru' },
-          { title: 'Evento de Meetup 2', groupImage: 'http://angular.github.io/react-native-renderer/assets/react.png', groupName: 'ReactJs Peru' },
-          { title: 'Evento de Meetup 3', groupImage: 'http://angular.github.io/react-native-renderer/assets/react.png', groupName: 'ReactJs Peru' },
-          { title: 'Evento de Meetup 4', groupImage: 'http://angular.github.io/react-native-renderer/assets/react.png', groupName: 'ReactJs Peru' },
-          { title: 'Evento de Meetup 4', groupImage: 'http://angular.github.io/react-native-renderer/assets/react.png', groupName: 'ReactJs Peru' },
-          { title: 'Evento de Meetup 4', groupImage: 'http://angular.github.io/react-native-renderer/assets/react.png', groupName: 'ReactJs Peru' },
-          { title: 'Evento de Meetup 4', groupImage: 'http://angular.github.io/react-native-renderer/assets/react.png', groupName: 'ReactJs Peru' },
-          { title: 'Evento de Meetup 4', groupImage: 'http://angular.github.io/react-native-renderer/assets/react.png', groupName: 'ReactJs Peru' },
-          { title: 'Evento de Meetup 4', groupImage: 'http://angular.github.io/react-native-renderer/assets/react.png', groupName: 'ReactJs Peru' }
+          { id: 1, title: 'Evento de Meetup 1', groupImage: 'http://angular.github.io/react-native-renderer/assets/react.png', groupName: 'ReactJs Peru' },
+          { id: 2, title: 'Evento de Meetup 2', groupImage: 'http://angular.github.io/react-native-renderer/assets/react.png', groupName: 'ReactJs Peru' },
+          { id: 3, title: 'Evento de Meetup 3', groupImage: 'http://angular.github.io/react-native-renderer/assets/react.png', groupName: 'ReactJs Peru' },
+          { id: 4, title: 'Evento de Meetup 4', groupImage: 'http://angular.github.io/react-native-renderer/assets/react.png', groupName: 'ReactJs Peru' },
+          { id: 5, title: 'Evento de Meetup 4', groupImage: 'http://angular.github.io/react-native-renderer/assets/react.png', groupName: 'ReactJs Peru' }
         ],
         isLoading: false
       });
@@ -56,13 +44,18 @@ export default class MeetupList extends React.Component{
   }
 
   render() {
+
+    const { navigation } = this.props;
     return this.setState.isLoading 
     ?(<ActivityIndicator style={styles.loader} size={100} color="red" />)
     :(<ScrollView style={styles.container} >
         {this.state.events.map((event, i) => (
           <TouchableWithoutFeedback
             key = {i}
-            onPress={() => null}
+            onPress={() => navigation.navigate('Detail', {
+              group: event.groupName,
+              id: event.id
+            })}
           >
             <View style={styles.card} >
               <Image style={styles.image} source={{ uri: event.groupImage }} />
